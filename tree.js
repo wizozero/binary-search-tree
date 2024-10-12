@@ -154,4 +154,55 @@ class Tree {
 
 		traverse(this.root)
 	}
+
+	height(node = this.root) {
+		if (node === null) return -1
+
+		const leftHeight = this.height(node.left)
+		const rightHeight = this.height(node.right)
+
+		return Math.max(leftHeight, rightHeight) + 1
+	}
+
+	depth(node) {
+		let depth = 0
+		let current = this.root
+
+		while (current !== null && current !== node) {
+			if (node.data < current.data) {
+				current = current.left
+			} else {
+				current = current.right
+			}
+			depth++
+		}
+
+		return current === null ? -1 : depth
+	}
+
+	isBalanced(node = this.root) {
+		if (node === null) return true
+
+		const leftHeight = this.height(node.left)
+		const rightHeight = this.height(node.right)
+
+		if (
+			Math.abs(leftHeight - rightHeight) <= 1 &&
+			this.isBalanced(node.left) &&
+			this.isBalanced(node.right)
+		) {
+			return true
+		}
+
+		return false
+	}
+
+	rebalance() {
+		if (this.isBalanced()) return
+
+		const nodes = []
+		this.inOrder((node) => nodes.push(node.data))
+
+		this.root = this.buildTree(nodes)
+	}
 }
