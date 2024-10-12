@@ -118,4 +118,16 @@ class Tree {
 			if (node.right) queue.push(node.right)
 		}
 	}
+
+	inOrder(callback) {
+		const traverse = (node) => {
+			if (node === null) return
+
+			traverse(node.left)
+			callback(node)
+			traverse(node.right)
+		}
+
+		traverse(this.root)
+	}
 }
