@@ -94,4 +94,15 @@ class Tree {
 
 		this.root = deleteNode(this.root, value)
 	}
+
+	find(value) {
+		const findNode = (node, value) => {
+			if (node === null || node.data === value) return node
+
+			if (value < node.data) return findNode(node.left, value)
+			return findNode(node.right, value)
+		}
+
+		return findNode(this.root, value)
+	}
 }
