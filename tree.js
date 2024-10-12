@@ -1,6 +1,6 @@
-const Node = require('./node')
+import Node from './node'
 
-class Tree {
+export default class Tree {
 	constructor(arr) {
 		this.root = this.buildTree(arr)
 	}

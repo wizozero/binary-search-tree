@@ -1,4 +1,4 @@
-const Tree = require('./tree')
+import Tree from './tree'
 
 // Función para generar un array de números aleatorios
 function randomArray(size, max) {
