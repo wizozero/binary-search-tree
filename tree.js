@@ -142,4 +142,16 @@ class Tree {
 
 		traverse(this.root)
 	}
+
+	postOrder(callback) {
+		const traverse = (node) => {
+			if (node === null) return
+
+			traverse(node.left)
+			traverse(node.right)
+			callback(node)
+		}
+
+		traverse(this.root)
+	}
 }
