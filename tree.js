@@ -50,4 +50,48 @@ class Tree {
 
 		insertNode(this.root, value)
 	}
+
+	delete(value) {
+		const deleteNode = (node, value) => {
+			if (node === null) return null
+
+			if (value < node.data) {
+				node.left = deleteNode(node.left, value)
+			} else if (value > node.data) {
+				node.right = deleteNode(node.right, value)
+			} else {
+				// Nodo encontrado, ahora a eliminarlo
+
+				// Caso 1 y 2: Sin hijos o un hijo
+				if (node.left === null) {
+					return node.right
+				} else if (node.right === null) {
+					return node.left
+				}
+
+				// Caso 3: Dos hijos
+				// Encuentra el sucesor (el mínimo en el subárbol derecho)
+				let successorParent = node
+				let successor = node.right
+				while (successor.left !== null) {
+					successorParent = successor
+					successor = successor.left
+				}
+
+				// Reemplaza el valor del nodo a eliminar con el del sucesor
+				node.data = successor.data
+
+				// Elimina el sucesor de su posición original
+				if (successorParent !== node) {
+					successorParent.left = successor.right
+				} else {
+					successorParent.right = successor.right
+				}
+			}
+
+			return node
+		}
+
+		this.root = deleteNode(this.root, value)
+	}
 }
